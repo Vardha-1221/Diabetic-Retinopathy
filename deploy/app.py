@@ -7,15 +7,13 @@ from PIL import Image
 import cv2
 import os
 
-# Streamlit page config (must be first Streamlit command)
 st.set_page_config(
     page_title="DR Detector",
     page_icon="🧿",
-    layout="wide",  # changed from 'centered' to 'wide'
+    layout="wide", 
     initial_sidebar_state="collapsed"
 )
 
-# Remove extra space at the top and bottom (aggressive CSS)
 st.markdown(
     """
     <style>
@@ -54,7 +52,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Load the model with error handling
+# Load the model function
 @st.cache_resource
 def load_model():
     try:
@@ -158,6 +156,31 @@ st.markdown("""
             border-top: 1px solid #ccc;
             padding-top: 10px;
         }
+        /* Responsive tweaks for mobile */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem !important; }
+            h3, h4 { font-size: 1.1rem !important; }
+            .stButton>button { font-size: 14px !important; padding: 8px 16px !important; }
+            .prediction { font-size: 18px !important; }
+            .team-card { padding: 8px !important; }
+            img { max-width: 100% !important; height: auto !important; }
+            .block-container { padding: 0.5rem !important; }
+        }
+        /* Responsive team names row/column */
+        .team-names {
+            display: flex;
+            flex-direction: row;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 600px) {
+            .team-names {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -173,6 +196,27 @@ st.markdown(
         transform: translateY(-8px) scale(1.03);
         border: 2px solid #43cea2;
         background: rgba(67, 206, 162, 0.10);
+    }
+    /* Responsive team cards container */
+    .team-cards-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    @media (max-width: 600px) {
+        .team-cards-container {
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+        .team-card {
+            width: 90vw !important;
+            min-width: unset !important;
+            max-width: 320px !important;
+        }
     }
     </style>
     ''', unsafe_allow_html=True)
@@ -206,7 +250,7 @@ if uploaded_image:
 
 # Styled Footer with team members
 st.markdown("---")
-# Guide card (centered above team)
+# Guide card 
 st.markdown(
     '''
 <div style="display: flex; justify-content: center; align-items: center; margin-top: 30px; margin-bottom: 10px;">
@@ -217,27 +261,27 @@ st.markdown(
     </div>
 </div>
 ''', unsafe_allow_html=True)
-# Modern glassmorphism team cards
+
 st.markdown(
     '''
-<div style="display: flex; justify-content: center; align-items: center; margin-top: 10px; gap: 20px; flex-wrap: nowrap;">
+<div class="team-cards-container">
     <!-- Team Member 1 -->
-    <div class="team-card" style="background: rgba(255, 255, 255, 0.25); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 20px; border: 1.5px solid rgba(255, 255, 255, 0.25); padding: 24px 16px 20px 16px; text-align: center; width: 260px; min-width: 260px; max-width: 260px; height: 200px; min-height: 200px; max-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div class="team-card" style="background: rgba(255, 255, 255, 0.25); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 20px; border: 1.5px solid rgba(255, 255, 255, 0.25); padding: 24px 16px 20px 16px; text-align: center; width: 260px; max-width: 260px; height: 200px; min-height: 200px; max-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <div style="width: 60px; height: 60px; margin: 0 auto 12px auto; background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #fff; font-weight: bold; box-shadow: 0 2px 8px rgba(24,90,157,0.10);">AV</div>
         <div style="font-size: 1.15rem; font-weight: 700; color: #2c3e50; margin-bottom: 4px; letter-spacing: 0.5px; line-height: 1.2;">Adepu<br>Vaishnavi</div>
     </div>
     <!-- Team Member 2 -->
-    <div class="team-card" style="background: rgba(255, 255, 255, 0.25); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 20px; border: 1.5px solid rgba(255, 255, 255, 0.25); padding: 24px 16px 20px 16px; text-align: center; width: 260px; min-width: 260px; max-width: 260px; height: 200px; min-height: 200px; max-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div class="team-card" style="background: rgba(255, 255, 255, 0.25); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 20px; border: 1.5px solid rgba(255, 255, 255, 0.25); padding: 24px 16px 20px 16px; text-align: center; width: 260px; max-width: 260px; height: 200px; min-height: 200px; max-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <div style="width: 60px; height: 60px; margin: 0 auto 12px auto; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #fff; font-weight: bold; box-shadow: 0 2px 8px rgba(238,90,36,0.10);">MP</div>
         <div style="font-size: 1.15rem; font-weight: 700; color: #2c3e50; margin-bottom: 4px; letter-spacing: 0.5px; line-height: 1.2;">Maganti<br>Pranathi</div>
     </div>
     <!-- Team Member 3 -->
-    <div class="team-card" style="background: rgba(255, 255, 255, 0.25); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 20px; border: 1.5px solid rgba(255, 255, 255, 0.25); padding: 24px 16px 20px 16px; text-align: center; width: 260px; min-width: 260px; max-width: 260px; height: 200px; min-height: 200px; max-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div class="team-card" style="background: rgba(255, 255, 255, 0.25); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 20px; border: 1.5px solid rgba(255, 255, 255, 0.25); padding: 24px 16px 20px 16px; text-align: center; width: 260px; max-width: 260px; height: 200px; min-height: 200px; max-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <div style="width: 60px; height: 60px; margin: 0 auto 12px auto; background: linear-gradient(135deg, #a8e6cf 0%, #2ecc71 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #fff; font-weight: bold; box-shadow: 0 2px 8px rgba(46,204,113,0.10);">YP</div>
         <div style="font-size: 1.15rem; font-weight: 700; color: #2c3e50; margin-bottom: 4px; letter-spacing: 0.5px; line-height: 1.2;">Yedla<br>Pranav</div>
     </div>
     <!-- Team Member 4 -->
-    <div class="team-card" style="background: rgba(255, 255, 255, 0.25); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 20px; border: 1.5px solid rgba(255, 255, 255, 0.25); padding: 24px 16px 20px 16px; text-align: center; width: 260px; min-width: 260px; max-width: 260px; height: 200px; min-height: 200px; max-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div class="team-card" style="background: rgba(255, 255, 255, 0.25); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 20px; border: 1.5px solid rgba(255, 255, 255, 0.25); padding: 24px 16px 20px 16px; text-align: center; width: 260px; max-width: 260px; height: 200px; min-height: 200px; max-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <div style="width: 60px; height: 60px; margin: 0 auto 12px auto; background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #fff; font-weight: bold; box-shadow: 0 2px 8px rgba(225,112,85,0.10);">HVB</div>
         <div style="font-size: 1.15rem; font-weight: 700; color: #2c3e50; margin-bottom: 4px; letter-spacing: 0.5px; line-height: 1.2;">Harsha vardhan<br>Botlagunta</div>
     </div>

@@ -21,7 +21,7 @@ DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Parameters
 BATCH_SIZE = 16
-EPOCHS = 10
+EPOCHS = 5
 NUM_CLASSES = 5  # No DR, Mild, Moderate, Severe, Proliferative DR
 
 # Transforms
